@@ -9,10 +9,11 @@ function AvailableBooks({ books }) {
 
   return (
     <section className="flex flex-col gap-2 items-center md:w-[65%] lg:p-6 mt-6">
-      <div className="grid place-content-center gap-2 z-10 sticky top-0 backdrop-blur-xl w-full rounded-b-xl">
+      <div className="grid place-content-center gap-2 z-10 sticky top-0 backdrop-blur-xl w-full rounded-b-xl ">
         {" "}
-        <h3 className="text-3xl text-center">Libros Disponibles</h3>
-        <hr className="opacity-30 max-sm:hidden" />
+        <h3 className="text-3xl font-bold text-center relative after:content-[''] after:absolute after:w-[90%] after:h-6 after:bg-sky-600/40 after:left-0 after:-bottom-2 after:-z-10 ">
+          Libros Disponibles
+        </h3>
         <p className="text-center mb-6 opacity-60 font-medium">
           <span className="font-bold text-xl text-sky-600">
             {books.length - readingList.length}

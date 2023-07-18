@@ -52,7 +52,7 @@ export default function Filters({
         </div>
       </div>
       <p className="text-center opacity-60 font-medium">
-        {selectedFilter.category !== "all" ? (
+        {selectedFilter.category !== "all" && (
           <>
             {availablesBooks.length > 1 ? "Existen " : "Existe "}
             <span className="font-bold text-sky-600">
@@ -60,16 +60,11 @@ export default function Filters({
             </span>{" "}
             {availablesBooks.length > 1 ? "libros " : "libro "} del género{" "}
             <span className="font-bold text-sky-600">
-              {selectedFilter.category}.
+              {selectedFilter.category}
             </span>
-          </>
-        ) : (
-          <>
-            Actualmente hay un total de{" "}
-            <span className="font-bold text-sky-600">
-              {availablesBooks.length}
-            </span>{" "}
-            libros
+            {selectedFilter.pages > 0 && (
+              <>{` con ${selectedFilter.pages} páginas como mínimo`}</>
+            )}
           </>
         )}
       </p>

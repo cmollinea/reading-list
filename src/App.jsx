@@ -5,6 +5,7 @@ import AvailableBooks from "./Componets/AvailableBooks";
 import Header from "./Componets/Header";
 import ReadingList from "./Componets/ReadingList";
 import { MdList } from "react-icons/md";
+import Footer from "./Componets/Footer";
 
 export default function App() {
   const { readingList, setReadingList, storedList } =
@@ -23,7 +24,7 @@ export default function App() {
     <div className="text-slate-300 flex flex-col mx-0 items-center place-content-center">
       <Header />
       <button
-        className="bg-sky-600/50 hover:bg-sky-600 text-2xl hover:text-inherit transition-colors text-slate-200/50 p-2 md:hidden fixed z-30 bottom-4 right-4 w-fit rounded-full"
+        className="bg-sky-600/50 hover:bg-sky-600 text-2xl hover:text-inherit transition-colors text-slate-200/50 p-2 md:hidden fixed z-30 bottom-10 right-4 w-fit rounded-full"
         onClick={() => setModalIsOpen((prev) => !prev)}
       >
         <MdList />
@@ -36,6 +37,7 @@ export default function App() {
           setModalIsOpen={setModalIsOpen}
         />
       </main>
+      <Footer />
     </div>
   );
 }
