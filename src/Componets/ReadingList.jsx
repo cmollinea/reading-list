@@ -8,7 +8,7 @@ function ReadingList({ modalIsOpen, setModalIsOpen }) {
 
   return (
     <section
-      className={`flex flex-col z-10 gap-2 items-center shadow-black/50 shadow-inner bg-slate-800/20 rounded-lg transition-all duration-200 fixed left-[65%] overflow-y-auto md:py-6 md:px-2 md:mt-6 md:mr-6 md:w-[30%] bottom-10 top-20 max-md:top-0 max-md:bottom-0 max-md:right-0 max-md:z-50 max-md:backdrop-blur-lg max-md:bg-black/50 ${
+      className={`flex flex-col z-10 gap-2 items-center shadow-black/50 shadow-inner bg-slate-800/20 rounded-lg transition-all duration-200 fixed left-[65%] overflow-y-auto md:px-2 md:mt-6 md:mr-6 md:w-[30%] bottom-10 top-20 max-md:top-0 max-md:bottom-0 max-md:right-0 max-md:z-50 max-md:backdrop-blur-lg max-md:bg-black/50 ${
         modalIsOpen
           ? "max-md:left-0 max-md:right-0"
           : " max-md:left-full max-md:overflow-hidden max-md:opacity-0"
@@ -20,7 +20,7 @@ function ReadingList({ modalIsOpen, setModalIsOpen }) {
       >
         <MdOutlineClose />
       </button>
-      <h3 className="text-3xl font-bold relative max-md:pt-8 text-center after:content-[''] after:absolute after:w-[90%] after:h-6 after:bg-sky-600/40 after:left-6 after:-bottom-2 after:-z-10">
+      <h3 className="text-3xl font-bold relative pt-4 max-md:pt-8 text-center after:content-[''] after:absolute after:w-full after:h-6 after:bg-sky-600/40 after:left-0 after:-bottom-1 after:-z-10">
         Lista de Lectura
       </h3>
       {readingList.length > 0 ? (

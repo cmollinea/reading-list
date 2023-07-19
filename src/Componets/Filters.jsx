@@ -54,7 +54,7 @@ export default function Filters({
       <p className="text-center opacity-60 font-medium">
         {selectedFilter.category !== "all" && (
           <>
-            {availablesBooks.length > 1 ? "Existen " : "Existe "}
+            Encontramos{" "}
             <span className="font-bold text-sky-600">
               {availablesBooks.length}
             </span>{" "}
@@ -62,9 +62,6 @@ export default function Filters({
             <span className="font-bold text-sky-600">
               {selectedFilter.category}
             </span>
-            {selectedFilter.pages > 0 && (
-              <>{` con ${selectedFilter.pages} páginas como mínimo`}</>
-            )}
           </>
         )}
       </p>

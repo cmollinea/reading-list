@@ -13,10 +13,9 @@ export default function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
-    //Revisar si estan en sincronia el localstorage y el estado
+    // Revisar si estan en sincronia el localstorage y el estado
     if (readingList !== storedList) {
       setReadingList(storedList);
-      return;
     }
   }, [storedList]);
 
@@ -30,7 +29,7 @@ export default function App() {
         <MdList />
       </button>
       <hr className="opacity-30 mt-6 w-[90%]" />
-      <main className="md:flex gap-10 w-full">
+      <main className="md:flex min-h-screen gap-10 w-full">
         <AvailableBooks books={books.library} />
         <ReadingList
           modalIsOpen={modalIsOpen}
