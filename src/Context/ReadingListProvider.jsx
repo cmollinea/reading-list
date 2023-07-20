@@ -1,17 +1,17 @@
-import { createContext, useState } from "react";
-import useLocalStorage from "use-local-storage";
+import { createContext, useState } from 'react';
+import useLocalStorage from 'use-local-storage';
 
 export const readingListContext = createContext();
 
 export function ReadingListProvider({ children }) {
   const [readingList, setReadingList] = useState(() => {
-    const books = localStorage.getItem("readingList");
+    const books = localStorage.getItem('readingList');
     if (books) {
       return JSON.parse(books);
     }
     return [];
   });
-  const [storedList, setStoredList] = useLocalStorage("readingList", []);
+  const [storedList, setStoredList] = useLocalStorage('readingList', []);
 
   return (
     <readingListContext.Provider

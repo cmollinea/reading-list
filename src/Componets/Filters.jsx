@@ -1,66 +1,96 @@
-import useFilters from "../Hooks/useFilters";
+import useFilters from '../Hooks/useFilters';
+import GenreFilter from './GenreFilter';
+import RangeFilter from './RangeFilter';
+import TitleFilter from './TitleFilter';
+import {
+  MdOutlineArrowDropDown,
+  MdFilterAltOff,
+  MdOutlineArrowDropUp
+} from 'react-icons/md';
+import { useState } from 'react';
 
 export default function Filters({
   setAvailablesBooks,
   availablesBooks,
-  books,
+  books
 }) {
-  const { handleGenreFilter, handlePagesFilter, selectedFilter, genres } =
-    useFilters(setAvailablesBooks, books);
+  const {
+    handleGenreFilter,
+    handlePagesFilter,
+    handleSearchByTitle,
+    clearFilters,
+    selectedFilter,
+    genres
+  } = useFilters(setAvailablesBooks, books);
+
+  const [showFilters, setShowFilters] = useState(false);
 
   return (
-    <div className="flex flex-col gap-2 items-center">
-      <div className="flex gap-8">
-        {" "}
-        <div className="grid gap-2">
-          <label
-            htmlFor="category-select"
-            className="text-sm text-center text-slate-200/40"
-          >
-            Elige un género:
-          </label>
-          <select
-            className="p-2 bg-gray-700 shadow-sm cursor-pointer rounded-xl  text-slate-100/50"
-            id="category-select"
-            onChange={(e) => handleGenreFilter(e)}
-          >
-            <option value="all" defaultChecked>
-              Todas los géneros
-            </option>
-            {genres?.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
-          </select>
-        </div>
-        <div className="grid gap-2">
-          {" "}
-          <label
-            htmlFor="max-pages-range"
-            className="text-sm text-center text-slate-200/40"
-          >
-            Mínimo de paginas: {selectedFilter.pages}
-          </label>
-          <input
-            id="max-pages-range"
-            type="range"
-            step={100}
-            min={0}
-            max={1200}
-            onChange={(e) => handlePagesFilter(e)}
-            value={selectedFilter.pages}
-          />
-        </div>
-      </div>
-      <p className="text-center opacity-60 font-medium">
-        {selectedFilter.category !== "all" && (
+    <div className='flex flex-col gap-2 items-center'>
+      <button
+        className='flex items-center text-xs w-fit py-1 px-2 bg-slate-600/20 font-light hover:bg-sky-600 shadow-md transition-all ease-in rounded-full active:translate-y-1 mb-4'
+        onClick={() => setShowFilters((prev) => !prev)}
+      >
+        {showFilters ? (
           <>
-            Encontramos{" "}
-            <span className="font-bold text-sky-600">
+            <MdOutlineArrowDropUp className='text-xl' /> Ocultar Filtros
+          </>
+        ) : (
+          <>
+            <MdOutlineArrowDropDown className='text-xl' />
+            Mostrar Filtros
+          </>
+        )}
+      </button>
+
+      {showFilters ? (
+        <>
+          <div className='flex max-lg:flex-col max-lg:gap-4 gap-8 items-center lg:items-start animate__animated animate__fadeIn'>
+            {' '}
+            <TitleFilter handleSearchByTitle={handleSearchByTitle} />
+            <GenreFilter
+              handleGenreFilter={handleGenreFilter}
+              genres={genres}
+            />
+            <RangeFilter
+              handlePagesFilter={handlePagesFilter}
+              pages={selectedFilter.pages}
+            />
+          </div>
+          <button
+            className='text-xs flex gap-0.5 items-center w-fit py-1 px-2 bg-slate-600/20 font-light hover:bg-red-500/80 shadow-md transition-all ease-in rounded-full active:translate-y-1 mt-4 animate__animated animate__fadeIn'
+            onClick={() => clearFilters()}
+          >
+            <MdFilterAltOff />
+            Limpiar Filtros
+          </button>
+        </>
+      ) : null}
+
+      <p className='text-center text-sm opacity-40 font-medium'>
+        {selectedFilter.category !== 'all' && (
+          <>
+            Encontramos{' '}
+            <span className='font-bold text-sky-600'>
               {availablesBooks.length}
-            </span>{" "}
-            {availablesBooks.length > 1 ? "libros " : "libro "} del género{" "}
-            <span className="font-bold text-sky-600">
+            </span>{' '}
+            {availablesBooks.length > 1 ? 'libros ' : 'libro '} del género{' '}
+            <span className='font-bold text-sky-600'>
               {selectedFilter.category}
+            </span>
+            <br />
+          </>
+        )}{' '}
+        {selectedFilter.title !== '' && (
+          <>
+            {' '}
+            <span className='font-bold text-sky-600'>
+              {availablesBooks.length}
+            </span>{' '}
+            {availablesBooks.length > 1 ? 'resultados ' : 'resultado '}
+            para la búsqueda de{' '}
+            <span className='font-bold text-sky-600'>
+              {selectedFilter.title}
             </span>
           </>
         )}
