@@ -10,7 +10,7 @@ function GenreFilter({ handleGenreFilter, genres }) {
       <select
         className='p-2 bg-gray-700 shadow-sm cursor-pointer rounded-xl  text-slate-100/50'
         id='category-select'
-        role='select'
+        role='genre-filter'
         onChange={(e) => handleGenreFilter(e)}
       >
         <option value='all' defaultChecked>

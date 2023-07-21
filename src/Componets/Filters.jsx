@@ -1,4 +1,5 @@
 import useFilters from '../Hooks/useFilters';
+import { useState } from 'react';
 import GenreFilter from './GenreFilter';
 import RangeFilter from './RangeFilter';
 import TitleFilter from './TitleFilter';
@@ -7,7 +8,6 @@ import {
   MdFilterAltOff,
   MdOutlineArrowDropUp
 } from 'react-icons/md';
-import { useState } from 'react';
 
 export default function Filters({
   setAvailablesBooks,
@@ -68,7 +68,7 @@ export default function Filters({
       ) : null}
 
       <p className='text-center text-sm opacity-40 font-medium'>
-        {selectedFilter.category !== 'all' && (
+        {selectedFilter.genre !== 'all' && (
           <>
             Encontramos{' '}
             <span className='font-bold text-sky-600'>
@@ -76,7 +76,7 @@ export default function Filters({
             </span>{' '}
             {availablesBooks.length > 1 ? 'libros ' : 'libro '} del género{' '}
             <span className='font-bold text-sky-600'>
-              {selectedFilter.category}
+              {selectedFilter.genre}
             </span>
             <br />
           </>

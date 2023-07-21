@@ -1,17 +1,28 @@
-/* eslint-disable quotes */
-import { describe, it, expect, beforeEach, afterEach } from 'vitest'
-import { cleanup, render, screen, fireEvent } from '@testing-library/react'
-import App from '../App'
-import { ReadingListProvider } from '../Context/ReadingListProvider'
-import books from '../mocks/books.json'
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { cleanup, render, screen, fireEvent } from '@testing-library/react';
+import App from '../App';
+import { ReadingListProvider } from '../Context/ReadingListProvider';
+import books from '../mocks/books.json';
 
-const titles = books.library.map((book) => book.book.title)
+const titles = books.library.map((book) => book.book.title);
+
 const filteredBooksByTerrorGenre = books.library.filter(
   (book) => book.book.genre === 'Terror'
-)
+);
+
 const filteredBooksByPages = books.library.filter(
   (book) => book.book.pages > 1000
-)
+);
+
+const addBooks = () => {
+  const addButtons = screen.getAllByRole('add-button');
+  addButtons.forEach((button) => fireEvent.click(button));
+};
+
+const showFilters = () => {
+  const button = screen.getByText(/mostrar filtros/i);
+  fireEvent.click(button);
+};
 
 describe('App Test', () => {
   beforeEach(() =>
@@ -20,41 +31,57 @@ describe('App Test', () => {
         <App />
       </ReadingListProvider>
     )
-  )
-  afterEach(() => cleanup())
-  it('should show header', () => {
-    screen.getByText(/Catálogo de Libros./i)
-  })
+  );
+  afterEach(() => {
+    cleanup();
+  });
 
-  it('should render an image for book', () => {
-    const images = screen.getAllByRole('img')
-    expect(images).toHaveLength(titles.length)
-  })
+  it('should show header', () => {
+    screen.getByText(/Catálogo de Libros./i);
+  });
+
+  it('should render an image for each book', () => {
+    const images = screen.getAllByRole('img');
+    expect(images).toHaveLength(titles.length);
+  });
 
   it('should add a book when click', () => {
-    const addButtons = screen.getAllByRole('add-button')
-    addButtons.forEach((button) => fireEvent.click(button))
-    const images = screen.getAllByRole('img')
-    expect(images).toHaveLength(titles.length * 2)
-  })
+    addBooks();
+    const images = screen.getAllByRole('img');
+    expect(images).toHaveLength(titles.length * 2);
+    window.localStorage.clear();
+  });
 
   it('should remove the book from list when click remove button', () => {
-    const removeButtons = screen.getAllByRole('remove-button')
-    removeButtons.forEach((button) => fireEvent.click(button))
-    expect(removeButtons).toHaveLength(titles.length)
-  })
+    addBooks();
+    const removeButtons = screen.getAllByRole('remove-button');
+    removeButtons.forEach((button) => fireEvent.click(button));
+    expect(removeButtons).toHaveLength(titles.length);
+  });
 
   it('should filter by genre', () => {
-    const select = screen.getByRole('select')
-    fireEvent.change(select, { target: { value: 'Terror' } })
-    const images = screen.getAllByRole('img')
-    expect(images).toHaveLength(filteredBooksByTerrorGenre.length)
-  })
+    showFilters();
+    const select = screen.getByRole('genre-filter');
+    fireEvent.change(select, { target: { value: 'Terror' } });
+    const images = screen.getAllByRole('img');
+    expect(images).toHaveLength(filteredBooksByTerrorGenre.length);
+  });
 
   it('should filter by minimun pages', () => {
-    const range = screen.getByRole('range')
-    fireEvent.change(range, { target: { value: 1000 } })
-    const images = screen.getAllByRole('img')
-    expect(images).toHaveLength(filteredBooksByPages.length)
-  })
-})
+    showFilters();
+    const range = screen.getByRole('pages-filter');
+    fireEvent.change(range, { target: { value: 1000 } });
+    const images = screen.getAllByRole('img');
+    expect(images).toHaveLength(filteredBooksByPages.length);
+  });
+
+  it('should filter by title', () => {
+    showFilters();
+    const search = screen.getByRole('title-filter');
+    fireEvent.change(search, { target: { value: 'harry potter' } });
+    const searchButton = screen.getByRole('search');
+    fireEvent.click(searchButton);
+    const images = screen.getAllByRole('img');
+    expect(images).toHaveLength(1);
+  });
+});

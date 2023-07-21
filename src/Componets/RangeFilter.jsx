@@ -12,7 +12,7 @@ function RangeFilter({ handlePagesFilter, pages }) {
         className='p-2'
         id='max-pages-range'
         type='range'
-        role='range'
+        role='pages-filter'
         step={100}
         min={0}
         max={1200}

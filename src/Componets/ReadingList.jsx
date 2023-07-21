@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { readingListContext } from '../Context/ReadingListProvider';
-import ReadingListCard from './ReadingListCard';
 import { MdOutlineClose } from 'react-icons/md';
+import ReadingListCard from './ReadingListCard';
 
 function ReadingList({ modalIsOpen, setModalIsOpen }) {
   const { readingList } = useContext(readingListContext);

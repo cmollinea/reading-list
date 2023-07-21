@@ -19,6 +19,9 @@ body {
   align-items: center;
   place-content: center;
   scrollbar-width: none;
-  background-color: rgba(0, 0, 0, 0.6);
+}
+
+body {
+  background-color: rgba(0, 0, 0, 0.88);
 }
 

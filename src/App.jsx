@@ -12,12 +12,27 @@ export default function App() {
     useContext(readingListContext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  // Check if local storage and global state are synchronized.
   useEffect(() => {
-    // Revisar si estan en sincronia el localstorage y el estado
     if (readingList !== storedList) {
       setReadingList(storedList);
     }
   }, [storedList]);
+
+  // Prevent bubble on mobile devices
+  useEffect(() => {
+    if (modalIsOpen) {
+      const modal = document.getElementById('modal');
+      const handleScrollOverModal = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      };
+      modal.addEventListener('touchmove', handleScrollOverModal);
+      return () => {
+        modal.removeEventListener('touchmove', handleScrollOverModal);
+      };
+    }
+  }, [modalIsOpen]);
 
   return (
     <div className='text-slate-300 flex flex-col mx-0 items-center place-content-center'>
