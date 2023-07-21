@@ -8,6 +8,7 @@ function ReadingList({ modalIsOpen, setModalIsOpen }) {
 
   return (
     <section
+      id='modal'
       className={`flex flex-col z-10 gap-2 items-center shadow-black/50 shadow-inner bg-slate-800/20 rounded-lg transition-all duration-200 fixed left-[65%] overflow-y-auto md:px-2 md:mt-6 md:mr-6 md:w-[30%] bottom-10 top-20 max-md:top-0 max-md:bottom-0 max-md:right-0 max-md:z-50 max-md:backdrop-blur-lg max-md:bg-black/50 ${
         modalIsOpen
           ? 'max-md:left-0 max-md:right-0'
