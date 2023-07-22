@@ -12,8 +12,8 @@ export default function App() {
     useContext(readingListContext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  // Check if local storage and global state are synchronized.
   useEffect(() => {
+    // Check if another tab made changes.
     if (readingList !== storedList) {
       setReadingList(storedList);
     }
